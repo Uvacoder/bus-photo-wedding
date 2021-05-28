@@ -1,3 +1,5 @@
+import siteconfig from './siteconfig.json';
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -38,11 +40,16 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/robots',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/sitemap' // Always declare last
   ],
   robots: {
     UserAgent: '*',
     Allow: '/'
+  },
+  sitemap: {
+    hostname: siteconfig.base_url,
+    exclude: ['/_icons']
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
