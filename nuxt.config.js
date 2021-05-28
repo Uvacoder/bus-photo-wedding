@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nottingham-wedding-photography',
+    titleTemplate: '%s | Nottingham Wedding Photography',
     htmlAttrs: {
       lang: 'en'
     },
