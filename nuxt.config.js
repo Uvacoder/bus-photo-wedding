@@ -13,11 +13,7 @@ export default {
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
   },
 
@@ -56,6 +52,13 @@ export default {
   robots: {
     UserAgent: '*',
     Allow: '/'
+  },
+  pwa: {
+    meta: {
+      ogHost: siteconfig.base_url,
+      ogSiteName: siteconfig.brand_name,
+      twitterCard: 'summary_large_image'
+    }
   },
   sitemap: {
     hostname: siteconfig.base_url,
