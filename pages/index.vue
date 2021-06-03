@@ -1,13 +1,30 @@
 <template>
-  <Navigation :logo="home.data.logo" />
+  <div>
+    <Navigation :logo="home.data.logo" />
+    <h1>{{ $prismic.asText(home.data.page_title) }}</h1>
+    <div class="featured-img">
+      <img :src="home.data.featured_image.url" :alt="home.data.featured_image.alt" />
+    </div>
+    <hr />
+    <section id="about">
+      <h2>{{ $prismic.asText(home.data.about_header) }}</h2>
+      <prismic-rich-text class="about" :field="home.data.about_text" />
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import siteconfig from '@/siteconfig.json'
 
 export default Vue.extend({
   name: 'Home',
   layout: 'default',
+  data () {
+    return {
+      siteconfig
+    }
+  },
   head () {
     return {
       // @ts-ignore
@@ -53,35 +70,32 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-header {
+h1 {
+  margin: 1rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.featured-img {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-}
+  justify-content: center;
 
-img {
-  width: 16rem;
-}
-
-ul {
-  list-style-type: none;
-  padding-left: 0;
-  text-align: right;
-  font-size: 1.5rem;
-
-  li:not(:last-of-type) {
-    margin-bottom: 1rem;
+  img {
+    width: 15rem;
   }
+}
 
-  a {
-    color: #000;
-    font-weight: 400;
-    text-decoration: none;
+hr {
+  margin: 2rem;
+  margin-bottom: 0;
+}
 
-    &:hover {
-      font-weight: 700;
-    }
+section {
+  padding: 1rem 2rem;
+
+  h2,
+  .about {
+    text-align: center;
   }
 }
 </style>

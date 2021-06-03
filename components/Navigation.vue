@@ -96,5 +96,11 @@ ul {
     display: grid;
     place-items: center;
   }
+
+  a {
+    line-height: 3rem;
+    height: 100%;
+    width: 100%;
+  }
 }
 </style>
