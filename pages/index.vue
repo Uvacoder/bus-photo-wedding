@@ -54,6 +54,7 @@
         <button class="form__submit" type="submit">Submit</button>
       </form>
     </section>
+    <SiteFooter />
   </div>
 </template>
 
