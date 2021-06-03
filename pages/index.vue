@@ -10,6 +10,50 @@
       <h2>{{ $prismic.asText(home.data.about_header) }}</h2>
       <prismic-rich-text class="about" :field="home.data.about_text" />
     </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <form class="form" :action="`https://formspree.io/f/${formspreeEndpoint}`" method="post">
+        <div class="form__name">
+          <label for="form-name">Name</label>
+          <input type="text" id="form-name" name="name" />
+        </div>
+        <div class="form__email">
+          <label for="form-email">Email</label>
+          <input type="email" id="form-email" name="_replyto" />
+        </div>
+        <div class="form__tel">
+          <label for="form-tel">Telephone</label>
+          <input type="tel" id="form-tel" name="telephone" />
+        </div>
+        <div class="form__date">
+          <label for="form-date">Date of wedding</label>
+          <input type="date" id="form-date" name="date" />
+        </div>
+        <div class="form__time">
+          <label for="form-time">Time of wedding</label>
+          <input type="time" id="form-time" name="time" />
+        </div>
+        <div class="form__guests">
+          <label for="form-guests">Number of guests</label>
+          <select id="form-guests" name="number_of_guests">
+            <option value="0-10">0 - 10</option>
+            <option value="11-30">11 - 30</option>
+            <option value="31-60">31 - 60</option>
+            <option value="60-99">60 - 99</option>
+            <option value="100+">100+</option>
+          </select>
+        </div>
+        <div class="form__location">
+          <label for="form-location">Location of wedding</label>
+          <input type="text" id="form-location" name="location" />
+        </div>
+        <div class="form__extra">
+          <label for="form-extra">Extra information</label>
+          <textarea id="form-extra" name="extra"></textarea>
+        </div>
+        <button class="form__submit" type="submit">Submit</button>
+      </form>
+    </section>
   </div>
 </template>
 
@@ -23,6 +67,11 @@ export default Vue.extend({
   data () {
     return {
       siteconfig
+    }
+  },
+  computed: {
+    formspreeEndpoint (): string {
+      return process.env.FORMSPREE_ENDPOINT!
     }
   },
   head () {
@@ -81,7 +130,7 @@ h1 {
   justify-content: center;
 
   img {
-    width: 15rem;
+    width: 28rem;
   }
 }
 
@@ -91,11 +140,44 @@ hr {
 }
 
 section {
-  padding: 1rem 2rem;
+  padding: 1rem;
+
+  @media (min-width: 500px) {
+    padding: 1rem 2rem;
+  }
 
   h2,
   .about {
     text-align: center;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas: 'name' 'email' 'tel' 'date' 'time' 'guests' 'location' 'extra' 'submit';
+  max-width: 60rem;
+  margin: 0 auto;
+
+  @media (min-width: 550px) {
+    grid-template-areas: 'name email' 'tel .' 'date time' 'guests location' 'extra extra' '. submit';
+  }
+
+  $formAreas: name, email, tel, date, time, guests, location, extra, submit;
+  @each $area in $formAreas {
+    &__#{$area} {
+      grid-area: $area;
+    }
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  textarea {
+    resize: vertical;
   }
 }
 </style>
