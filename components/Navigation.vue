@@ -75,6 +75,7 @@ ul {
     width: 100%;
     box-shadow: rgba(200, 200, 200, 0.5) 0 -0.25rem 0.5rem 0;
     z-index: 1000;
+    background-color: #fff;
   }
 
   ul {
