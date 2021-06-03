@@ -1,7 +1,5 @@
 <template>
-  <pre>
-    {{ home.data }}
-  </pre>
+  <Navigation :logo="home.data.logo" />
 </template>
 
 <script lang="ts">
@@ -55,5 +53,35 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
 
+img {
+  width: 16rem;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: right;
+  font-size: 1.5rem;
+
+  li:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #000;
+    font-weight: 400;
+    text-decoration: none;
+
+    &:hover {
+      font-weight: 700;
+    }
+  }
+}
 </style>
