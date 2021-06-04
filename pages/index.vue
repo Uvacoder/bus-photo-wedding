@@ -15,33 +15,33 @@
       <form class="form" :action="`https://formspree.io/f/${formspreeEndpoint}`" method="post">
         <div class="form__name">
           <label for="form-name">Name</label>
-          <input v-model="contactForm.name" type="text" id="form-name" name="name" autocomplete="name" required @input="touch('name')" @blur="touch('name')" />
+          <input v-model="contactForm.name" type="text" id="form-name" name="name" autocomplete="name" required @change="autosave" @input="touch('name')" @blur="touch('name')" />
           <p v-if="$v.contactForm.name.$dirty && $v.contactForm.name.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__email">
           <label for="form-email">Email</label>
-          <input v-model="contactForm.email" type="email" id="form-email" name="_replyto" autocomplete="email" required @input="touch('email')" @blur="touch('email')" />
+          <input v-model="contactForm.email" type="email" id="form-email" name="_replyto" autocomplete="email" required @change="autosave" @input="touch('email')" @blur="touch('email')" />
           <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.required" class="form__error">This field is required</p>
           <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.email" class="form__error">Enter a valid email address</p>
         </div>
         <div class="form__tel">
           <label for="form-tel">Telephone</label>
-          <input v-model="contactForm.tel" type="tel" id="form-tel" name="telephone" autocomplete="tel" required @input="touch('tel')" @blur="touch('tel')" />
+          <input v-model="contactForm.tel" type="tel" id="form-tel" name="telephone" autocomplete="tel" required @change="autosave" @input="touch('tel')" @blur="touch('tel')" />
           <p v-if="$v.contactForm.tel.$dirty && $v.contactForm.tel.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__date">
           <label for="form-date">Date of wedding</label>
-          <input v-model="contactForm.date" type="date" id="form-date" name="date" required @input="touch('date')" @blur="touch('date')" />
+          <input v-model="contactForm.date" type="date" id="form-date" name="date" required @change="autosave" @input="touch('date')" @blur="touch('date')" />
           <p v-if="$v.contactForm.date.$dirty && $v.contactForm.date.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__time">
           <label for="form-time">Time of wedding</label>
-          <input v-model="contactForm.time" type="time" id="form-time" name="time" required @input="touch('time')" @blur="touch('time')" />
+          <input v-model="contactForm.time" type="time" id="form-time" name="time" required @change="autosave" @input="touch('time')" @blur="touch('time')" />
           <p v-if="$v.contactForm.time.$dirty && $v.contactForm.time.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__guests">
           <label for="form-guests">Number of guests</label>
-          <select v-model="contactForm.guests" id="form-guests" name="number_of_guests" required @input="touch('guests')" @blur="touch('guests')">
+          <select v-model="contactForm.guests" id="form-guests" name="number_of_guests" required @change="autosave" @input="touch('guests')" @blur="touch('guests')">
             <option value="0-10">0 - 10</option>
             <option value="11-30">11 - 30</option>
             <option value="31-60">31 - 60</option>
@@ -52,12 +52,12 @@
         </div>
         <div class="form__location">
           <label for="form-location">Location of wedding</label>
-          <input v-model="contactForm.location" type="text" id="form-location" name="location" required @input="touch('location')" @blur="touch('location')" />
+          <input v-model="contactForm.location" type="text" id="form-location" name="location" required @change="autosave" @input="touch('location')" @blur="touch('location')" />
           <p v-if="$v.contactForm.location.$dirty && $v.contactForm.location.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__extra">
           <label for="form-extra">Extra information</label>
-          <textarea v-model="contactForm.extra" id="form-extra" name="extra"></textarea>
+          <textarea v-model="contactForm.extra" id="form-extra" name="extra" @change="autosave"></textarea>
         </div>
         <button class="form__submit" type="submit" :disabled="$v.contactForm.$invalid">Submit</button>
       </form>
@@ -115,7 +115,7 @@ export default Vue.extend({
         guests: '',
         location: '',
         extra: ''
-      } as Record<string, any>
+      }
     }
   },
   computed: {
@@ -164,7 +164,23 @@ export default Vue.extend({
       error({ statusCode: 404, message: 'Page not found' })
     }
   },
+  mounted () {
+    // @ts-ignore this.getAutosave does exist
+    this.getAutosave();
+  },
   methods: {
+    getAutosave (): void {
+      const data = sessionStorage.getItem('autosave')
+      
+      if (data) {
+      // @ts-ignore this.contactForm does exist
+        this.contactForm = JSON.parse(data)
+      }
+    },
+    autosave (): void {
+      // @ts-ignore this.contactForm does exist
+      sessionStorage.setItem('autosave', JSON.stringify(this.contactForm))
+    },
     touch (formField: string): void {
       return this.$v.contactForm[formField]!.$touch()
     }
