@@ -15,18 +15,18 @@
       <form class="form" :action="`https://formspree.io/f/${formspreeEndpoint}`" method="post">
         <div class="form__name">
           <label for="form-name">Name</label>
-          <input v-model="contactForm.name" type="text" id="form-name" name="name" required @input="touch('name')" @blur="touch('name')" />
+          <input v-model="contactForm.name" type="text" id="form-name" name="name" autocomplete="name" required @input="touch('name')" @blur="touch('name')" />
           <p v-if="$v.contactForm.name.$dirty && $v.contactForm.name.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__email">
           <label for="form-email">Email</label>
-          <input v-model="contactForm.email" type="email" id="form-email" name="_replyto" required @input="touch('email')" @blur="touch('email')" />
+          <input v-model="contactForm.email" type="email" id="form-email" name="_replyto" autocomplete="email" required @input="touch('email')" @blur="touch('email')" />
           <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.required" class="form__error">This field is required</p>
           <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.email" class="form__error">Enter a valid email address</p>
         </div>
         <div class="form__tel">
           <label for="form-tel">Telephone</label>
-          <input v-model="contactForm.tel" type="tel" id="form-tel" name="telephone" required @input="touch('tel')" @blur="touch('tel')" />
+          <input v-model="contactForm.tel" type="tel" id="form-tel" name="telephone" autocomplete="tel" required @input="touch('tel')" @blur="touch('tel')" />
           <p v-if="$v.contactForm.tel.$dirty && $v.contactForm.tel.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__date">
