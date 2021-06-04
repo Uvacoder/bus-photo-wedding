@@ -6,10 +6,11 @@
     "dev": "nuxt --open",
     "build": "nuxt build --modern=client",
     "start": "nuxt start",
-    "generate": "nuxt generate -m",
+    "generate": "rimraf dist && nuxt generate -m",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "@nuxtjs/prismic": "^1.3.1",
@@ -37,6 +38,8 @@
     "eslint-plugin-vue": "^7.10.0",
     "fibers": "^5.0.0",
     "jest": "^27.0.4",
+    "push-dir": "^0.4.1",
+    "rimraf": "^3.0.2",
     "sass": "^1.34.1",
     "sass-loader": "^10.2.0",
     "ts-jest": "^27.0.2",
