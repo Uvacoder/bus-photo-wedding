@@ -15,43 +15,51 @@
       <form class="form" :action="`https://formspree.io/f/${formspreeEndpoint}`" method="post">
         <div class="form__name">
           <label for="form-name">Name</label>
-          <input type="text" id="form-name" name="name" />
+          <input v-model="contactForm.name" type="text" id="form-name" name="name" required @input="touch('name')" @blur="touch('name')" />
+          <p v-if="$v.contactForm.name.$dirty && $v.contactForm.name.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__email">
           <label for="form-email">Email</label>
-          <input type="email" id="form-email" name="_replyto" />
+          <input v-model="contactForm.email" type="email" id="form-email" name="_replyto" required @input="touch('email')" @blur="touch('email')" />
+          <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.required" class="form__error">This field is required</p>
+          <p v-if="$v.contactForm.email.$dirty && !$v.contactForm.email.email" class="form__error">Enter a valid email address</p>
         </div>
         <div class="form__tel">
           <label for="form-tel">Telephone</label>
-          <input type="tel" id="form-tel" name="telephone" />
+          <input v-model="contactForm.tel" type="tel" id="form-tel" name="telephone" required @input="touch('tel')" @blur="touch('tel')" />
+          <p v-if="$v.contactForm.tel.$dirty && $v.contactForm.tel.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__date">
           <label for="form-date">Date of wedding</label>
-          <input type="date" id="form-date" name="date" />
+          <input v-model="contactForm.date" type="date" id="form-date" name="date" required @input="touch('date')" @blur="touch('date')" />
+          <p v-if="$v.contactForm.date.$dirty && $v.contactForm.date.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__time">
           <label for="form-time">Time of wedding</label>
-          <input type="time" id="form-time" name="time" />
+          <input v-model="contactForm.time" type="time" id="form-time" name="time" required @input="touch('time')" @blur="touch('time')" />
+          <p v-if="$v.contactForm.time.$dirty && $v.contactForm.time.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__guests">
           <label for="form-guests">Number of guests</label>
-          <select id="form-guests" name="number_of_guests">
+          <select v-model="contactForm.guests" id="form-guests" name="number_of_guests" required @input="touch('guests')" @blur="touch('guests')">
             <option value="0-10">0 - 10</option>
             <option value="11-30">11 - 30</option>
             <option value="31-60">31 - 60</option>
             <option value="60-99">60 - 99</option>
             <option value="100+">100+</option>
           </select>
+          <p v-if="$v.contactForm.guests.$dirty && $v.contactForm.guests.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__location">
           <label for="form-location">Location of wedding</label>
-          <input type="text" id="form-location" name="location" />
+          <input v-model="contactForm.location" type="text" id="form-location" name="location" required @input="touch('location')" @blur="touch('location')" />
+          <p v-if="$v.contactForm.location.$dirty && $v.contactForm.location.$invalid" class="form__error">This field is required</p>
         </div>
         <div class="form__extra">
           <label for="form-extra">Extra information</label>
-          <textarea id="form-extra" name="extra"></textarea>
+          <textarea v-model="contactForm.extra" id="form-extra" name="extra"></textarea>
         </div>
-        <button class="form__submit" type="submit">Submit</button>
+        <button class="form__submit" type="submit" :disabled="$v.contactForm.$invalid">Submit</button>
       </form>
     </section>
     <SiteFooter />
@@ -62,12 +70,52 @@
 import Vue from 'vue'
 import siteconfig from '@/siteconfig.json'
 
+import { email, required } from 'vuelidate/lib/validators'
+import { validationMixin } from 'vuelidate'
+
 export default Vue.extend({
   name: 'Home',
   layout: 'default',
+  mixins: [validationMixin],
+  validations: {
+    contactForm: {
+      name: {
+        required
+      },
+      email: {
+        email,
+        required
+      },
+      tel: {
+        required
+      },
+      date: {
+        required
+      },
+      time: {
+        required
+      },
+      guests: {
+        required
+      },
+      location: {
+        required
+      }
+    }
+  },
   data () {
     return {
-      siteconfig
+      siteconfig,
+      contactForm: {
+        name: '',
+        email: '',
+        tel: '',
+        date: new Date(),
+        time: '00:00',
+        guests: '',
+        location: '',
+        extra: ''
+      } as Record<string, any>
     }
   },
   computed: {
@@ -114,6 +162,11 @@ export default Vue.extend({
       return { home }
     } else {
       error({ statusCode: 404, message: 'Page not found' })
+    }
+  },
+  methods: {
+    touch (formField: string): void {
+      return this.$v.contactForm[formField]!.$touch()
     }
   }
 })
@@ -179,6 +232,11 @@ section {
 
   textarea {
     resize: vertical;
+  }
+
+  &__error {
+    color: crimson;
+    margin: 0;
   }
 }
 </style>
