@@ -1,7 +1,7 @@
 <template>
   <footer>
     <p>&copy;{{ year }} {{ siteconfig.brand_name }}. All rights reserved.</p>
-    <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link>
+    <!-- <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link> -->
   </footer>
 </template>
 
