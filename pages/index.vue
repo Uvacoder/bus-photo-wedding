@@ -218,14 +218,11 @@ hr {
 
 section {
   padding: 1rem;
+  max-width: 82rem;
+  margin: auto;
 
   @media (min-width: 500px) {
     padding: 1rem 2rem;
-  }
-
-  h2,
-  .about {
-    text-align: center;
   }
 }
 
@@ -233,7 +230,6 @@ section {
   display: grid;
   gap: 1rem;
   grid-template-areas: 'name' 'email' 'tel' 'date' 'time' 'guests' 'location' 'extra' 'submit';
-  max-width: 60rem;
   margin: 0 auto;
 
   @media (min-width: 550px) {
