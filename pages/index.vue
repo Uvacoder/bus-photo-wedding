@@ -212,7 +212,7 @@ h1 {
 }
 
 hr {
-  margin: 2rem;
+  margin: 2rem 10%;
   margin-bottom: 0;
 }
 
