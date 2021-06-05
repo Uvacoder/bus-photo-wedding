@@ -59,6 +59,15 @@ export default {
       ogHost: siteconfig.base_url,
       ogSiteName: siteconfig.brand_name,
       twitterCard: 'summary_large_image'
+    },
+    manifest: {
+      name: siteconfig.brand_name,
+      short_name: siteconfig.brand_name,
+      /* icons: handled by pwa.icons module, */
+      description: 'Low cost quality wedding photography in Nottingham, UK',
+      start_url: '/',
+      display: 'browser',
+      useWebmanifestExtension: true
     }
   },
   sitemap: {
