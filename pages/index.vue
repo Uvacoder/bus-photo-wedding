@@ -193,6 +193,13 @@ h1 {
   margin: 1rem;
   margin-top: 0;
   text-align: center;
+
+  @media (min-width: 900px) {
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .featured-img {
