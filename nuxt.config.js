@@ -35,7 +35,8 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/dotenv',
-    '@nuxtjs/prismic'
+    '@nuxtjs/prismic',
+    '@nuxtjs/vuetify'
   ],
   prismic: {
     endpoint: 'https://nottinghamweddingphotography.cdn.prismic.io/api/v2',

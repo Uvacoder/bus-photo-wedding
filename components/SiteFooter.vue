@@ -31,6 +31,11 @@ footer {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  text-align: center;
+
+  @media (max-width: 500px) {
+    margin-bottom: 1.5rem;
+  }
 }
 
 a {
