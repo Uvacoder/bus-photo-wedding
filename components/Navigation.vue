@@ -1,7 +1,7 @@
 <template>
   <header>
     <nuxt-link to="/">
-      <img :src="logo.url" :alt="logo.alt" />
+      <img :src="logo.url" :alt="logo.alt" width="256" height="181" />
     </nuxt-link>
     <nav>
       <ul>

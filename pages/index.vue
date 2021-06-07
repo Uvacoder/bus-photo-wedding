@@ -3,7 +3,7 @@
     <Navigation :logo="home.data.logo" />
     <h1>{{ $prismic.asText(home.data.page_title) }}</h1>
     <div class="featured-img">
-      <img :src="home.data.featured_image.url" :alt="home.data.featured_image.alt" />
+      <img :src="home.data.featured_image.url" :alt="home.data.featured_image.alt" width="448" height="334" />
     </div>
     <hr />
     <section id="about">
