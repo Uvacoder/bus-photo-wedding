@@ -73,7 +73,7 @@ export default {
   },
   sitemap: {
     hostname: siteconfig.base_url,
-    exclude: ['/_icons']
+    exclude: ['/_icons', '/preview']
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
