@@ -49,6 +49,7 @@ export default {
   modules: [
     '@nuxtjs/robots',
     '@nuxtjs/pwa',
+    '@nuxtjs/google-analytics',
     '@nuxtjs/sitemap' // Always declare last
   ],
   robots: {
@@ -70,6 +71,10 @@ export default {
       display: 'browser',
       useWebmanifestExtension: true
     }
+  },
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS,
+    dev: process.env.NODE_ENV !== 'production'
   },
   sitemap: {
     hostname: siteconfig.base_url,
