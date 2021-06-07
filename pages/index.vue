@@ -5,6 +5,7 @@
     <div class="featured-img">
       <img :src="home.data.featured_image.url" :alt="home.data.featured_image.alt" width="448" height="334" />
     </div>
+    <p class="attention">£150 limited time offer</p>
     <hr />
     <section id="about">
       <h2>{{ $prismic.asText(home.data.about_header) }}</h2>
@@ -232,6 +233,13 @@ h1 {
   img {
     width: 28rem;
   }
+}
+
+.attention {
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 700;
 }
 
 hr {
